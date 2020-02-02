@@ -10,7 +10,8 @@ public class Themain {
         Class carCls = new Car(111, "i20", "hyundai", 2018, 800000L).getClass();
 
 
-        Class carCls2 = Car.class.getClass();
+        Car car = new Car();
+        Class carCls2 = new Car().getClass();
 
         // constructors
 
@@ -38,21 +39,27 @@ public class Themain {
         SecurityManager sm = new SecurityManager();
         Method privateMethod_details = carCls.getDeclaredMethod("printDetails", String.class);
         privateMethod_details.setAccessible(true);
-        String reply = (String)privateMethod_details.invoke(carr,"short");
+        String reply = (String)privateMethod_details.invoke(carr,"detailed");
         System.out.println(reply);
 
-        // set private field
+        // set - get field
 
-        Field field = carCls.getDeclaredField("modelName");
+        Field fieldModelName = carCls.getDeclaredField("modelName");
+        String oldName = (String)fieldModelName.get(carr);
+        System.out.println("Old field " + oldName);
+        fieldModelName.set(carr,"Tesla");
+        System.out.println("New field " + carr.getModelName());
 
+        // set - get private field
 
-        // get private field
+        Field private_launchYear = carCls2.getDeclaredField("launchYear");
+        System.out.println("is private? " + private_launchYear.isAccessible()); // why is it false for all fields
+        private_launchYear.setAccessible(true);
 
-
-
-
-
-
+        System.out.println("Old value of launch year: " + private_launchYear.get(car));
+        private_launchYear.set(car,2019);
+        System.out.println("New value of launch year: " + private_launchYear.get(car));
+        System.out.println("car: " + car);
 
 
     }

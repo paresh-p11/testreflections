@@ -1,10 +1,8 @@
 public class Car {
     int modelNo;
     String modelName;
-
     private String parentCompany;
     private int launchYear;
-
     Long marketPrice;
 
     public Car(int modelNo, String modelName, String parentCompany, int launchYear, Long marketPrice) {
@@ -16,8 +14,12 @@ public class Car {
     }
 
     public Car() {
+        this.modelNo = 0;
+        this.modelName = "";
+        this.parentCompany = "";
+        this.launchYear = 0;
+        this.marketPrice = 0L;
     }
-
 
     public int getModelNo() {
         return modelNo;
